@@ -16,8 +16,6 @@ cd ../../
 
 Or, you can use the transformed PyTorch model of mine. You can download them from [Baidu Pan](https://pan.baidu.com/s/1pLJkp0f). Files included in that directory are:
 ```
-vocabs/vocab_train.pkl
-vocabs/vocab_words.txt
 model/coco_valid1_eval.pkl
 model/mil.pth
 model/precision_score.pkl
