@@ -14,7 +14,7 @@ make pycaffe
 cd ../../
 ```
 
-Or, you can use the transformed PyTorch model of mine. You can download them from [BaiduPan]. Files included in that directory are:
+Or, you can use the transformed PyTorch model of mine. You can download them from [Baidu Pan](https://pan.baidu.com/s/1pLJkp0f). Files included in that directory are:
 ```
 vocabs/vocab_train.pkl
 vocabs/vocab_words.txt
