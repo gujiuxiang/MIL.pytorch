@@ -1,4 +1,12 @@
 # PyTorch implementation of Multiple-instance learning
+
+
+## Updates
+
+- [ ] Training/Testing on MS COCO
+- [x] Testing on single image
+
+## About
 This repository contains the MIL implementation for the experiments in:
 ```
 https://github.com/s-gupta/visual-concepts
