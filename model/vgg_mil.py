@@ -70,7 +70,7 @@ class vgg_mil(nn.Module):
         x1 = torch.add(torch.mul(x0.view(x.size(0), 1000, -1), -1), 1)
         cumprod = torch.cumprod(x1, 2)
         out = torch.max(x, torch.add(torch.mul(cumprod[:, :, -1], -1), 1))
-        #out = F.softmax(out)
+        out = F.softmax(out)
         return out
 
 class MIL_Precision_Score_Mapping(nn.Module):

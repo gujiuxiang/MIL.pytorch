@@ -99,7 +99,7 @@ def train(opt):
         last_name = os.path.basename(opt.model_id)
         last_time = last_name[0:8]
         print(
-            "{}/{},{}/{},loss(t|{:.2f},v|{:.2f})|T/B({:.2f})" \
+            "{}/{},{}/{},loss(t|{:.4f},v|{:.4f})|T/B({:.2f})" \
             .format(opt.model+'.'+last_time, iteration, epoch, opt.batch_size,
                     train_loss, val_loss,
                     time.time() - start))

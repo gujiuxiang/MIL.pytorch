@@ -35,15 +35,18 @@ import itertools
 class Criterion(nn.Module):
     def __init__(self):
         super(Criterion, self).__init__()
-        #self.loss = nn.MultiLabelMarginLoss()
-        self.loss = nn.MultiLabelSoftMarginLoss()
-        #self.loss = nn.MultiMarginLoss()
-        #self.loss = nn.CrossEntropyLoss()
-        #self.loss = nn.NLLLoss()
+        #self.loss0 = nn.MultiLabelMarginLoss()
+        self.loss0 = nn.MultiLabelSoftMarginLoss()
+        #self.loss0 = nn.MultiMarginLoss()
+        #self.loss0 = nn.CrossEntropyLoss()
+        #self.loss0 = nn.NLLLoss()
+
+        #self.loss1 = nn.MultiMarginLoss()
 
     def forward(self, input, target):
-        output = self.loss(input, target.float())
-        return output
+        output0 = self.loss0(input, target.float())
+        #output1 = self.loss1(input, target.long())
+        return output0
 
 def build_mil(opt):
     opt.n_gpus = getattr(opt, 'n_gpus', 1)
