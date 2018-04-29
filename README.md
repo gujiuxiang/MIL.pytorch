@@ -4,6 +4,7 @@
 ## Updates
 
 - [ ] Training/Testing on MS COCO
+- [ ] Training/Testing on Openimages
 - [x] Testing on single image
 
 ## About
