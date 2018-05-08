@@ -4,7 +4,7 @@
 ## Updates
 
 - [ ] Training/Testing on MS COCO
-- [ ] Training/Testing on Openimages
+- [x] Testing on Openimages, object detection and classification
 - [x] Testing on single image
 
 ## About
