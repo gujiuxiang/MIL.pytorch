@@ -17,4 +17,4 @@ func_det()
     CUDA_VISIBLE_DEVICES=1 python extract_det_oid.py --split coco_train2014
     CUDA_VISIBLE_DEVICES=1 python extract_det_oid.py --split coco_test2015
 }
-func_det
+func_cls
