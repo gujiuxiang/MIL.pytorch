@@ -23,8 +23,9 @@ import gc
 import os
 import pickle
 import argparse
-from model.model import *
+from model.models import *
 from model.utils import *
+import coco_voc
 
 this_dir = osp.dirname(__file__)
 ##############################################################################################
@@ -63,12 +64,12 @@ vocab, functional_words, is_functional, pt = load_vocabulary()
 
 parser = argparse.ArgumentParser(description='PyTorch MIL Training')
 parser.add_argument('--start_from', type=str, default='')
-parser.add_argument('--load_precision_score', type=str, default='model/precision_score.pkl')
+parser.add_argument('--load_precision_score', type=str, default='')
 parser.add_argument('--cnn_weight', default='model/mil.pth',
                     help='cnn weights')
 opt = parser.parse_args()
 
-mil_model = VGG_MIL(opt)
+mil_model = vgg_mil(opt)
 mil_model.cuda()
 mil_model.eval()
 

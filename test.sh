@@ -7,7 +7,9 @@ func_cls()
     CUDA_VISIBLE_DEVICES=1 python extract_cls_oid.py --split coco_val2014
     CUDA_VISIBLE_DEVICES=1 python extract_cls_oid.py --split coco_test2014
     CUDA_VISIBLE_DEVICES=1 python extract_cls_oid.py --split coco_train2014
-    CUDA_VISIBLE_DEVICES=1 python extract_cls_oid.py --split coco_test2015
+    #CUDA_VISIBLE_DEVICES=1 python extract_cls_oid.py --split coco_test2015
+    #CUDA_VISIBLE_DEVICES=1 python extract_cls_oid.py --split chinese
+    #CUDA_VISIBLE_DEVICES=1 python extract_cls_oid.py --split chinese_val
 }
 
 func_det()

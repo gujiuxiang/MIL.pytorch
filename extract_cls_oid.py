@@ -177,7 +177,7 @@ def load_image_ids(split_name):
       print('Unknown split')
     return split
 
-def get_classifications_from_im(g, sess, image_ids):
+def get_classifications_from_im(args, g, sess, image_ids):
     save_dir = 'oid_data/'
     input_values = g.get_tensor_by_name('input_values:0')
     predictions = g.get_tensor_by_name('multi_predictions:0')
@@ -185,7 +185,10 @@ def get_classifications_from_im(g, sess, image_ids):
     for im_file, image_id in image_ids:
         compressed_image = tf.gfile.FastGFile(im_file, 'rb').read()
         predictions_eval = sess.run(predictions, feed_dict={input_values: [compressed_image]})
-        np.savez_compressed(save_dir + 'oid_cls/' + str(image_id), feat=predictions_eval)
+        if 'chinese' in args.data_split:
+            np.savez_compressed(save_dir + 'aic_i2t/oid_cls/' + str(image_id), feat=predictions_eval)
+        else:
+            np.savez_compressed(save_dir + 'mscoco/oid_cls/' + str(image_id), feat=predictions_eval)
         if (count % 100) == 0:
             print('{:d}'.format(count + 1))
         count += 1
@@ -220,7 +223,7 @@ def main(_):
             saver = tf.train.import_meta_graph(args.checkpoint_path + '.meta')
             saver.restore(sess, args.checkpoint_path)
             image_ids = load_image_ids(args.data_split)
-            get_classifications_from_im(g, sess, image_ids)
+            get_classifications_from_im(args, g, sess, image_ids)
 
 if __name__ == '__main__':
   tf.app.run()

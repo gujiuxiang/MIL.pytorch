@@ -225,7 +225,7 @@ def run_inference_for_single_image(image, graph):
         output_dict['detection_masks'] = output_dict['detection_masks'][0]
   return output_dict
 
-def get_detections_from_im(detection_graph, image_ids):
+def get_detections_from_im(args, detection_graph, image_ids):
     save_dir = '/home/jxgu/github/MIL.pytorch/oid_data/'
     count = 0
     for im_file, image_id in image_ids:
@@ -237,8 +237,11 @@ def get_detections_from_im(detection_graph, image_ids):
         image_np_expanded = np.expand_dims(image_np, axis=0)
         # Actual detection.
         output_dict = run_inference_for_single_image(image_np, detection_graph)
+        if 'chinese' in args.data_split:
+            np.savez_compressed(save_dir + 'aic_i2t/oid_det/' + str(image_id), feat=output_dict)
+        else:
+            np.savez_compressed(save_dir + 'mscoco/oid_det/' + str(image_id), feat=output_dict)
 
-        np.savez_compressed(save_dir + 'oid_det/' + str(image_id), feat=output_dict)
         if (count % 100) == 0:
             print('{:d}'.format(count + 1))
         count += 1
@@ -294,6 +297,6 @@ def main(_):
             od_graph_def.ParseFromString(serialized_graph)
             tf.import_graph_def(od_graph_def, name='')
             image_ids = load_image_ids(args.data_split)
-            get_detections_from_im(detection_graph, image_ids)
+            get_detections_from_im(args, detection_graph, image_ids)
 if __name__ == '__main__':
   tf.app.run()
