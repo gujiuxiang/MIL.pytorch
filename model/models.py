@@ -7,12 +7,10 @@ import torch
 import torch.nn as nn
 from torch.autograd import Variable
 import time
-import Image
 import os
 import os.path as osp
 import sys
 import platform
-import cPickle
 import urllib
 import cv2, numpy as np
 from scipy.interpolate import interp1d

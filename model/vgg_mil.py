@@ -2,7 +2,6 @@ import torch
 import torch.nn as nn
 import os
 from torch.autograd import Variable
-from torch.utils.serialization import load_lua
 import torch.nn.functional as F
 
 class vgg_mil(nn.Module):

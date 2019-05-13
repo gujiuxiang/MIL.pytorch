@@ -1,21 +1,19 @@
 """Set up paths."""
+from __future__ import print_function
 import os
 import os.path as osp
 import sys
 import platform
-import cPickle
 import cv2, numpy as np
 from matplotlib.pyplot import show
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
 import time
-import Image
 import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 import torch.backends.cudnn as cudnn
-import tensorflow as tf
 import torchvision
 import torchvision.transforms as transforms
 from six.moves import cPickle
@@ -25,7 +23,7 @@ import pickle
 import argparse
 from model.models import *
 from model.utils import *
-import coco_voc
+from builtins import range
 
 this_dir = osp.dirname(__file__)
 ##############################################################################################
@@ -93,7 +91,7 @@ if len(opt.load_precision_score) >0 :
 else:
     precision_score = compute_precision_mapping(pt)
 
-for jj in xrange(prec.shape[1]):
+for jj in range(prec.shape[1]):
     f = interp1d(precision_score['thresh'][jj][:,0], precision_score['prec'][jj][:,0])
     #prec[:, jj] = f(mil_prob[:, jj])
     prec[:, jj] = mil_prob[:, jj]
@@ -118,5 +116,5 @@ for (a, b, c) in out:
             index = index + 1
             # print '{:s} [{:.2f}, {:.2f}]   '.format(a, np.round(b,2), np.round(c,2))
 
-print det_atts
-print det_atts_w
+print(det_atts)
+print(det_atts_w)
