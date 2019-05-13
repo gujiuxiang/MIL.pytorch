@@ -7,13 +7,13 @@ import torch
 import torch.nn as nn
 from torch.autograd import Variable
 import time
-import Image
 import os
 import os.path as osp
 import sys
 import platform
-import cPickle
-import urllib
+from six.moves.urllib.parse import urlparse, urlencode
+from six.moves.urllib.request import urlopen
+from six.moves.urllib.error import HTTPError
 import cv2, numpy as np
 from scipy.interpolate import interp1d
 from matplotlib.pyplot import show
@@ -30,6 +30,7 @@ from six.moves import cPickle
 from model.vgg_mil import *
 from model.resnet_mil import *
 import itertools
+from builtins import range
 
 '''
 -- Learning rate annealing schedule. We will build a new optimizer for
@@ -114,7 +115,7 @@ def save_variables(pickle_file_name, var, info, overwrite=False):
     assert (type(var) == list);
     assert (type(info) == list);
     d = {}
-    for i in xrange(len(var)):
+    for i in range(len(var)):
         d[info[i]] = var[i]
     with open(pickle_file_name, 'wb') as f:
         cPickle.dump(d, f, cPickle.HIGHEST_PROTOCOL)
@@ -144,7 +145,7 @@ def clip_gradient(optimizer, grad_clip):
 def url_to_image(url):
     # download the image, convert it to a NumPy array, and then read
     # it into OpenCV format
-    resp = urllib.urlopen(url)
+    resp = urlopen(url)
     image = np.asarray(bytearray(resp.read()), dtype="uint8")
     image = cv2.imdecode(image, cv2.IMREAD_COLOR)
 
@@ -171,7 +172,7 @@ def compute_precision_score_mapping_torch(thresh, prec, score):
 def compute_precision_mapping(pt):
     thresh_all = []
     prec_all = []
-    for jj in xrange(1000):
+    for jj in range(1000):
         thresh = pt['details']['score'][:, jj]
         prec = pt['details']['precision'][:, jj]
         ind = np.argsort(thresh); # thresh, ind = torch.sort(thresh)
@@ -183,7 +184,7 @@ def compute_precision_mapping(pt):
         thresh = np.vstack((min(-1000, min(thresh) - 1), thresh[:, np.newaxis], max(1000, max(thresh) + 1)));
 
         prec = prec[ind];
-        for i in xrange(1, len(prec)):
+        for i in range(1, len(prec)):
             prec[i] = max(prec[i], prec[i - 1]);
         prec = prec[indexes]
 
@@ -203,7 +204,7 @@ def compute_precision_score_mapping(thresh, prec, score):
     thresh = np.vstack((min(-1000, min(thresh) - 1), thresh[:, np.newaxis], max(1000, max(thresh) + 1)));
 
     prec = prec[ind];
-    for i in xrange(1, len(prec)):
+    for i in range(1, len(prec)):
         prec[i] = max(prec[i], prec[i - 1]);
     prec = prec[indexes]
 
